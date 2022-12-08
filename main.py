@@ -1,11 +1,9 @@
 import asyncio
-import pprint
 
 import aioschedule
 from aiogram import Bot, Dispatcher, types
 from aiogram.types import ContentType
 from aiogram.utils import executor
-from aiogram.utils.json import json
 
 import config
 
