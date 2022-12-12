@@ -1,8 +1,8 @@
 import asyncio
 import pprint
 import time
-
 import aioschedule
+
 from aiogram import Bot, Dispatcher, types
 from aiogram.types import ContentType
 from aiogram.utils import executor
@@ -18,19 +18,19 @@ dp = Dispatcher(bot)
 ob = Observer()
 
 
-@dp.message_handler(commands=['do_it_4_all'])
+@dp.message_handler(commands=['is_bot_alive'])
 async def process_do_it_4_all(message: types.Message):
-    await bot.send_message(config.CHANNEL_ID_LOGS, config.MSG_LOGS)
+    await bot.send_message(message.chat.id, "yes")
 
 
 @dp.message_handler(content_types=ContentType.ANY)
 async def unknown_message(msg: types.Message):
-    pprint.pprint(json(msg))
-    await msg.reply('fuck off, i dont know how to react 2 this shit')
+    await msg.reply("так, " + msg.from_user.first_name + ', світло є',)
 
 
 async def scheduler():
-    aioschedule.every(2).seconds.do(send_4_all)
+    await send_4_all()
+    aioschedule.every(3).minutes.do(send_4_all)
     while True:
         await aioschedule.run_pending()
         await asyncio.sleep(1)
@@ -49,6 +49,7 @@ async def send_4_all():
     elif ob.new_state == 0:
         pass  # mb it will be msg when power off, but i`m not sure
     ob.state = ob.new_state
+
 
 async def on_startup(_):
     asyncio.create_task(scheduler())
