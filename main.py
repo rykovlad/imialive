@@ -16,17 +16,27 @@ bot = Bot(token=config.BOT_TOKEN)
 
 dp = Dispatcher(bot)
 ob = Observer()
-mode = MODE
+mode = config.MODE
 
 
 @dp.message_handler(commands=['is_bot_alive'])
-async def process_do_it_4_all(message: types.Message):
+async def process_is_bot_alive(message: types.Message):
     await bot.send_message(message.chat.id, "yes, i`m alive")
 
 
+@dp.message_handler(commands=['update_bot_on_server'])
+async def process_update_bot_on_server(message: types.Message):
+    if message.from_id in config.BOSSES_ID:
+        import subprocess
+        subprocess.call("/home/gorb/bots/bot_updater.sh")
+        await message.reply("done)")
+    else:
+        await message.reply("fuck oF")
+
+
 @dp.message_handler(content_types=ContentType.ANY)
-async def unknown_message(msg: types.Message):
-    await msg.reply("так, " + msg.from_user.first_name + ', світло є',)
+async def unknown_message():
+    pass
 
 
 async def scheduler():
