@@ -16,6 +16,7 @@ bot = Bot(token=config.BOT_TOKEN)
 
 dp = Dispatcher(bot)
 ob = Observer()
+mode = MODE
 
 
 @dp.message_handler(commands=['is_bot_alive'])
@@ -37,19 +38,20 @@ async def scheduler():
 
 
 async def send_4_all():
-    try:
-        await bot.send_message(config.CHANNEL_ID_LOGS, config.MSG_LOGS)
-        ob.new_state = 1
-    except NetworkError as e:
-        print("noooo \n", e)
-        ob.new_state = 0
+    if mode == "release":
+        try:
+            await bot.send_message(config.CHANNEL_ID_LOGS, config.MSG_LOGS)
+            ob.new_state = 1
+        except NetworkError as e:
+            print("noooo \n", e)
+            ob.new_state = 0
 
-    if (ob.state != ob.new_state) & (ob.new_state == 1):
-        await bot.send_message(config.CHANNEL_ID_LOGS, config.MSG_LIGHT_BACK)
-        await bot.send_message(config.CHANNEL_ID, config.MSG_LIGHT_BACK)
-    elif ob.new_state == 0:
-        pass  # mb it will be msg when power off, but i`m not sure
-    ob.state = ob.new_state
+        if (ob.state != ob.new_state) & (ob.new_state == 1):
+            await bot.send_message(config.CHANNEL_ID_LOGS, config.MSG_LIGHT_BACK)
+            await bot.send_message(config.CHANNEL_ID, config.MSG_LIGHT_BACK)
+        elif ob.new_state == 0:
+            pass  # mb it will be msg when power off, but i`m not sure
+        ob.state = ob.new_state
 
 
 async def on_startup(_):
