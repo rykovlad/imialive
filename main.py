@@ -20,7 +20,7 @@ ob = Observer()
 
 @dp.message_handler(commands=['is_bot_alive'])
 async def process_do_it_4_all(message: types.Message):
-    await bot.send_message(message.chat.id, "yes")
+    await bot.send_message(message.chat.id, "yes, i`m alive")
 
 
 @dp.message_handler(content_types=ContentType.ANY)
