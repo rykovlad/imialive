@@ -64,4 +64,4 @@ if __name__ == '__main__':
             executor.start_polling(dp, on_startup=on_startup, skip_updates=True)
         except NetworkError as e:
             print(e)
-        time.sleep(29)
+        time.sleep(31)
