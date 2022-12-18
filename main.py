@@ -18,10 +18,10 @@ dp = Dispatcher(bot)
 ob = Observer()
 mode = config.MODE
 
-# holy shit1
+
 @dp.message_handler(commands=['is_bot_alive'])
 async def process_is_bot_alive(message: types.Message):
-    await bot.send_message(message.chat.id, "так, " + message.from_user.first_name + ", світло і інет є")
+    await bot.send_message(message.chat.id, "так, " + message.from_user.first_name + ", світло і інет є. не спам пліз")
 
 
 @dp.message_handler(commands=['update_bot_on_server'])
