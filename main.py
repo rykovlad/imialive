@@ -28,7 +28,7 @@ async def process_is_bot_alive(message: types.Message):
 async def process_update_bot_on_server(message: types.Message):
     if message.from_id in config.BOSSES_ID:
         import subprocess
-        subprocess.call("/home/gorb/bots/bot_updater.sh")
+        subprocess.call(config.PATH_TO_UPDATER_SCRIPT)
         await message.reply("done)")
     else:
         await message.reply("fuck oF")
