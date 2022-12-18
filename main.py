@@ -58,6 +58,7 @@ async def send_4_all():
 
         if (ob.state != ob.new_state) & (ob.new_state == 1):
             await bot.send_message(config.CHANNEL_ID_LOGS, config.MSG_LIGHT_BACK)
+            time.sleep(1)
             await bot.send_message(config.CHANNEL_ID, config.MSG_LIGHT_BACK)
         elif ob.new_state == 0:
             pass  # mb it will be msg when power off, but i`m not sure
